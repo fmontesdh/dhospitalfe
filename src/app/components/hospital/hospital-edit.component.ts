@@ -39,10 +39,9 @@ export class HospitalEditComponent implements OnInit {
         .subscribe(
           response => {
             this.hospital = response;
-            // console.log(this.hospital);
           },
           error => {
-            console.log(error);
+            Swal.fire('Error!', error, 'error');
           });
     });
   }
@@ -59,7 +58,6 @@ export class HospitalEditComponent implements OnInit {
           );          
         },
         error => {
-          console.log(error);
           Swal.fire('Error!', error, 'error');
         });
   }  

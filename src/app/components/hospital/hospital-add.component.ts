@@ -33,12 +33,10 @@ export class HospitalAddComponent implements OnInit {
     this.hospitalService.create(data)
       .subscribe(
         response => {
-          console.log(response);
           this.isHospitalAdd = true;
           Swal.fire('Correcto!',  "Registro almacenado correctamente.", 'success');
         },
         error => {
-          console.log(error);
           Swal.fire('Error!', error, 'error');
         });
     this.hospital = new Hospital(0, '');

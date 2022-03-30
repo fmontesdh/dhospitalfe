@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import Swal from 'sweetalert2';
+
 import { HospitalService } from 'src/app/services/hospital.service';
 import { Hospital } from 'src/app/models/hospital';
 
@@ -30,7 +32,7 @@ export class HospitalListComponent implements OnInit {
         this.hospitalList = data.content;
       },
       (error: any) => {
-        console.log(error);        
+        Swal.fire('Error!', error, 'error');        
       }
     );
   }
