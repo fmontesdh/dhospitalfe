@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import Swal from 'sweetalert2';
 
 import { HospitalService } from 'src/app/services/hospital.service';
@@ -20,7 +20,8 @@ export class HospitalEditComponent implements OnInit {
 
   constructor(
     private hospitalService: HospitalService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) {
     this.title = 'Editar Hospital';
     this.hospital = new Hospital(0, '');
@@ -53,8 +54,9 @@ export class HospitalEditComponent implements OnInit {
     this.hospitalService.update(this.idHospital, data)
       .subscribe(
         response => {
-          console.log(response);
-          Swal.fire('Correcto!', response.message, 'success');
+          Swal.fire('Correcto!',  "Registro editado correctamente.", 'success').then(
+            () => this.router.navigate(['/hospital/list'])
+          );          
         },
         error => {
           console.log(error);
