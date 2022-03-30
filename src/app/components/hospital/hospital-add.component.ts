@@ -30,7 +30,7 @@ export class HospitalAddComponent implements OnInit {
     const data = {
       nombre: this.hospital.nombre,
     };
-    this.hospitalService.createHospital(data)
+    this.hospitalService.create(data)
       .subscribe(
         response => {
           console.log(response);

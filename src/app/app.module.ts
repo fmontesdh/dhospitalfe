@@ -8,13 +8,15 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
 import { HospitalListComponent } from './components/hospital/hospital-list.component';
 import { HospitalAddComponent } from './components/hospital/hospital-add.component';
+import { HospitalEditComponent } from './components/hospital/hospital-edit.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     HospitalListComponent,
-    HospitalAddComponent
+    HospitalAddComponent,
+    HospitalEditComponent
   ],
   imports: [
     BrowserModule,

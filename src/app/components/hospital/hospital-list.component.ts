@@ -25,7 +25,7 @@ export class HospitalListComponent implements OnInit {
   }
 
   public getAllHospitales(): void{
-    this.hospitalService.getAllHospitals().subscribe(
+    this.hospitalService.getAll().subscribe(
       (data: any) => {      
         this.hospitalList = data.content;
       },

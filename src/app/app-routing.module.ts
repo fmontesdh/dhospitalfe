@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { HomeComponent } from './components/home/home.component';
 import { HospitalAddComponent } from './components/hospital/hospital-add.component';
+import { HospitalEditComponent } from './components/hospital/hospital-edit.component';
 import { HospitalListComponent } from './components/hospital/hospital-list.component';
 
 const routes: Routes = [
@@ -10,6 +11,7 @@ const routes: Routes = [
     { path: 'home', component: HomeComponent },
     { path: 'hospital/list', component: HospitalListComponent },
     { path: 'hospital/new', component: HospitalAddComponent },
+    { path: 'hospital/edit/:id', component: HospitalEditComponent }, 
     { path: '**', component: HomeComponent }
 ];
 @NgModule({

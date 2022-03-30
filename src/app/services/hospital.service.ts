@@ -17,18 +17,32 @@ export class HospitalService {
     private http: HttpClient
   ) { }
 
-  public getAllHospitals(): Observable<any> {
+  public getAll(): Observable<any> {
     return this.http.get(this.ENDPOINT + this.URI_ROOT).pipe(
       catchError(this.handleError)
     );
   }
 
-  public createHospital(data: any): Observable<any> {
+  public create(data: any): Observable<any> {
     return this.http.post(this.ENDPOINT + this.URI_ROOT, data,
       { headers: this.HEADERS }).pipe(
         catchError(this.handleError)
       );
   }
+
+  public filterById(id: number): Observable<any> {
+    return this.http.get(`${this.ENDPOINT}${this.URI_ROOT}/${id}`).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  public update(id: any, data: any): Observable<any> {
+    return this.http.put(`${this.ENDPOINT}${this.URI_ROOT}/${id}`,
+      data, { headers: this.HEADERS }).pipe(
+        catchError(this.handleError)
+      );
+  }
+
 
   public handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {

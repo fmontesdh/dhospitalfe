@@ -1,4 +1,4 @@
-<div class="d-flex justify-content-between flex-wrap flex-md-nowrap alignitems-center pt-3 pb-2 mb-3 border-bottom">
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
     <h2>{{ title }}</h2>
 </div>
 <button type="button" class="btn btn-primary" [routerLink]="['/hospital/new']">Adicionar Hospital</button>
@@ -8,12 +8,16 @@
         <tr>
             <th>ID</th>
             <th>HOSPITAL</th>
+            <th style="min-width: 80px;">Accion</th>
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let user of hospitalList">
-            <td>{{ user.id }}</td>
-            <td>{{ user.nombre }}</td>
+        <tr *ngFor="let hospital of hospitalList">
+            <td>{{ hospital.id }}</td>
+            <td>{{ hospital.nombre }}</td>
+            <td>
+                <button type="button" class="btn btn-success btn-sm" routerLink="/hospital/edit/{{hospital.id}}">Editar</button>
+            </td>
         </tr>
     </tbody>
 </table>
