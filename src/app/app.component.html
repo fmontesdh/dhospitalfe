@@ -36,7 +36,7 @@
       <div class="sidebar-sticky pt-3">
         <ul class="nav flex-column">
           <li class="nav-item">
-            <a class="nav-link active" [routerLink]="['/home']" [routerLinkActive]="['active']">
+            <a class="nav-link active" [routerLink]="['/home']">
               <span class="fa fa-home icon-menu"></span>
               Inicio
             </a>
@@ -48,19 +48,19 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" [routerLink]="['/doctor/list']" [routerLinkActive]="['active']">
               <span class="fa fa-user-md icon-menu"></span>
               Doctores
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" [routerLink]="['/paciente/list']" [routerLinkActive]="['active']">
               <span class="fa fa-user icon-menu"></span>
               Pacientes
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" [routerLink]="['/especialidad/list']" [routerLinkActive]="['active']">
               <span class="fa fa-tag icon-menu"></span>
               Especialidades
             </a>
