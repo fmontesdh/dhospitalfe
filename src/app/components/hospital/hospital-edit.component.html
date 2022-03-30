@@ -7,5 +7,6 @@
         <input id="nombre" name="nombre" type="text" class="form-control" 
                 [(ngModel)]="hospital.nombre">
     </div>
-    <button type="submit" class="btn btn-primary">Guardar</button>
+    <button type="submit" class="btn btn-primary" style="margin-right: 4px;">Guardar</button>
+    <button type="button" class="btn btn-secondary" [routerLink]="['/hospital/list']">Cancelar</button>
 </form>
