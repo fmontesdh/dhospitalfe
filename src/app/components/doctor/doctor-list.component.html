@@ -1,1 +1,25 @@
-<p>doctor-list works!</p>
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h2>{{ title }}</h2>
+</div>
+<button type="button" class="btn btn-primary" [routerLink]="['/doctor/new']">Adicionar doctor</button>
+<div *ngIf="!doctorList"> Cargando listado... </div>
+<table *ngIf="doctorList" class="table table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>NOMBRE</th>
+            <th>APELLIDO</th>
+            <th style="min-width: 80px;">Accion</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let doctor of doctorList">
+            <td>{{ doctor.id }}</td>
+            <td>{{ doctor.nombre }}</td>
+            <td>{{ doctor.apellido }}</td>
+            <td>
+                <button type="button" class="btn btn-success btn-sm" routerLink="/doctor/edit/{{doctor.id}}">Editar</button>
+            </td>
+        </tr>
+    </tbody>
+</table>

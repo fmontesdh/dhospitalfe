@@ -1,5 +1,3 @@
-import { Hospital } from "./hospital";
-
 export class Paciente {
     constructor(
         public id: number,

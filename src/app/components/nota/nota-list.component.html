@@ -1,1 +1,23 @@
-<p>nota-list works!</p>
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h2>{{ title }}</h2>
+</div>
+<button type="button" class="btn btn-primary" [routerLink]="['/nota/new']">Adicionar nota</button>
+<div *ngIf="!notaList"> Cargando listado... </div>
+<table *ngIf="notaList" class="table table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>DESCRIPCION</th>
+            <th style="min-width: 80px;">Accion</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let nota of notaList">
+            <td>{{ nota.id }}</td>
+            <td>{{ nota.descripcion }}</td>
+            <td>
+                <button type="button" class="btn btn-success btn-sm" routerLink="/nota/edit/{{nota.id}}">Editar</button>
+            </td>
+        </tr>
+    </tbody>
+</table>
