@@ -1,1 +1,33 @@
-<p>doctor-add works!</p>
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h2>{{ title }}</h2>
+</div>
+<form (ngSubmit)="saveDoctor()">
+    <div class="mb-3">
+        <label for="nombre" class="form-label">Nombre:</label>
+        <input id="nombre" name="nombre" type="text" class="form-control" [(ngModel)]="doctor.nombre">
+    </div>
+    <div class="mb-3">
+        <label for="apellido" class="form-label">Apellido:</label>
+        <input id="apellido" name="apellido" type="text" class="form-control" [(ngModel)]="doctor.apellido">
+    </div>
+    <div class="mb-3">
+        <label for="fechaNacimiento" class="form-label">Fecha de nacimiento:</label>
+        <input id="fechaNacimiento" name="fechaNac" type="date" class="form-control"
+            [(ngModel)]="doctor.fechaNacimiento">
+    </div>
+    <div class="mb-3">
+        <label for="direccion" class="form-label">Direccion:</label>
+        <input id="direccion" name="direccion" type="text" class="form-control" [(ngModel)]="doctor.direccion">
+    </div>
+    <div class="mb-3">
+        <label for="hospital_id" class="form-label">Hospital:</label>
+        <select id="hospital_id" name="hospital_id" class="custom-select" 
+                [(ngModel)]="doctor.hospital_id">
+            <option *ngFor="let hospital of hospitalList" [value]="hospital.id">
+                {{ hospital.nombre }}
+            </option>
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary" style="margin-right: 4px;">Guardar</button>
+    <button type="button" class="btn btn-secondary" [routerLink]="['/Doctor/list']">Cancelar</button>
+</form>
