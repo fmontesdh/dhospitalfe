@@ -28,6 +28,15 @@
             </option>
         </select>
     </div>
+    <div class="mb-3">
+        <label for="especialidadSelect" class="form-label">Especialidades:</label>
+        <select class="custom-select" multiple name="especialidadSelect"
+                [(ngModel)]="especialidadSelectList">
+            <option *ngFor="let esp of especialidadList" [ngValue]="esp.id">
+                 {{ esp.nombre }}
+            </option>
+      </select> 
+    </div>
     <button type="submit" class="btn btn-primary" style="margin-right: 4px;">Guardar</button>
-    <button type="button" class="btn btn-secondary" [routerLink]="['/Doctor/list']">Cancelar</button>
+    <button type="button" class="btn btn-secondary" [routerLink]="['/doctor/list']">Cancelar</button>
 </form>

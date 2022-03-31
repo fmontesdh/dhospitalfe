@@ -1,17 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import Swal from 'sweetalert2';
 
 import { DoctorService } from 'src/app/services/doctor.service';
 import { Doctor } from 'src/app/models/doctor';
-
 import { HospitalService } from 'src/app/services/hospital.service';
 import { Hospital } from 'src/app/models/hospital';
+import { EspecialidadService } from 'src/app/services/especialidad.service';
+import { Especialidad } from 'src/app/models/especialidad';
 
 @Component({
   selector: 'app-doctor-add',
   templateUrl: './doctor-add.component.html',
   styleUrls: ['./doctor-add.component.css'],
-  providers: [DoctorService, HospitalService]
+  providers: [DoctorService, HospitalService, EspecialidadService]
 })
 export class DoctorAddComponent implements OnInit {
 
@@ -19,23 +20,33 @@ export class DoctorAddComponent implements OnInit {
   public doctor: Doctor;
   public isDoctorAdd = false;
   public hospitalList: Hospital[];
+  public especialidadList: Especialidad[];
+  public especialidadSelectList: string[];
+
+  public subDoctorSave: any;
+  public subHospitalList: any;
+  public subEspecialidadList: any;
 
   constructor(
     private doctorService: DoctorService,
-    private hospitalService: HospitalService
+    private hospitalService: HospitalService,
+    private especialidadService: EspecialidadService
   ) {
     this.title = 'Adicionar Doctor';
     this.doctor = new Doctor(0, '', '', new Date(), '', 1);
     this.hospitalList = [];
+    this.especialidadList = [];
+    this.especialidadSelectList = [];
   }
 
   ngOnInit(): void {
     this.loadHospitales();
+    this.loadEspecialidades();
   }
 
   public loadHospitales(): void {
     this.hospitalList = [];
-    this.hospitalService.getAll().subscribe(
+    this.subHospitalList = this.hospitalService.getAll().subscribe(
       (data: any) => {
         this.hospitalList = data.content;
       },
@@ -45,7 +56,20 @@ export class DoctorAddComponent implements OnInit {
     );
   }
 
-  public saveDoctor(): void {
+  public loadEspecialidades(): void {
+    this.especialidadList = [];
+    this.subEspecialidadList = this.especialidadService.getAll().subscribe(
+      (data: any) => {    
+        this.especialidadList = data;
+      },
+      (error: any) => {
+        Swal.fire('Error!', error, 'error');
+      }
+    );
+  }
+
+  public saveDoctor(): void { 
+    let especialidadesArray = this.especialidadSelectList.map((str, index) => ({ id: str }));   
     const data = {
       nombre: this.doctor.nombre,
       apellido: this.doctor.apellido,
@@ -53,9 +77,11 @@ export class DoctorAddComponent implements OnInit {
       direccion: this.doctor.direccion,
       hospital: {
         id: this.doctor.hospital_id
-      }
+      },
+      especialidades: especialidadesArray
     };
-    this.doctorService.create(data)
+
+    this.subDoctorSave = this.doctorService.create(data)
       .subscribe(
         response => {
           this.isDoctorAdd = true;
@@ -65,6 +91,14 @@ export class DoctorAddComponent implements OnInit {
           Swal.fire('Error!', error, 'error');
         });
     this.doctor = new Doctor(0, '', '', new Date(), '', 0);
+    this.especialidadSelectList = [];
   }
 
+  ngOnDestroy() {
+    this.subHospitalList.unsubscribe();
+    this.subEspecialidadList.unsubscribe();
+    if(this.subDoctorSave){
+      this.subDoctorSave.unsubscribe();
+    }
+  }
 }
