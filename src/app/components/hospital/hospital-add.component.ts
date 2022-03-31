@@ -30,7 +30,7 @@ export class HospitalAddComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
   }
 
-  public saveHospital(): void {
+  public saveHospital(form: any): void {
     const data = {
       nombre: this.hospital.nombre,
     };
@@ -45,7 +45,6 @@ export class HospitalAddComponent implements OnInit, OnDestroy {
         error => {
           Swal.fire('Error!', error, 'error');
         });
-    this.hospital = new Hospital(0, '');
   }
 
   ngOnDestroy() {

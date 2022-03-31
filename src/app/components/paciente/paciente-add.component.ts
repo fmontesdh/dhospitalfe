@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 
 import { PacienteService } from 'src/app/services/paciente.service';
 import { Paciente } from 'src/app/models/paciente';
-
 import { HospitalService } from 'src/app/services/hospital.service';
 import { Hospital } from 'src/app/models/hospital';
 
@@ -13,16 +13,20 @@ import { Hospital } from 'src/app/models/hospital';
   styleUrls: ['./paciente-add.component.css'],
   providers: [PacienteService, HospitalService]
 })
-export class PacienteAddComponent implements OnInit {
+export class PacienteAddComponent implements OnInit, OnDestroy {
 
   public title: string;
   public paciente: Paciente;
   public isPacienteAdd = false;
   public hospitalList: Hospital[];
 
+  public subPacienteSave: any;
+  public subHospitalList: any;
+
   constructor(
     private pacienteService: PacienteService,
-    private hospitalService: HospitalService
+    private hospitalService: HospitalService,
+    private router: Router
   ) {
     this.title = 'Adicionar Paciente';
     this.paciente = new Paciente(0, '', '', new Date(), '', 1);
@@ -35,7 +39,7 @@ export class PacienteAddComponent implements OnInit {
 
   public loadHospitales(): void {
     this.hospitalList = [];
-    this.hospitalService.getAll().subscribe(
+    this.subHospitalList = this.hospitalService.getAll().subscribe(
       (data: any) => {
         this.hospitalList = data.content;
       },
@@ -55,15 +59,24 @@ export class PacienteAddComponent implements OnInit {
         id: this.paciente.hospital_id
       }
     };
-    this.pacienteService.create(data)
+    this.subPacienteSave = this.pacienteService.create(data)
       .subscribe(
         response => {
           this.isPacienteAdd = true;
-          Swal.fire('Correcto!', "Registro almacenado correctamente.", 'success');
+          Swal.fire('Correcto!', "Registro almacenado correctamente.", 'success').then(
+            () => this.router.navigate(['/paciente/list'])
+          );
         },
         error => {
           Swal.fire('Error!', error, 'error');
         });
     this.paciente = new Paciente(0, '', '', new Date(), '', 0);
+  }
+
+  ngOnDestroy() {
+    this.subHospitalList.unsubscribe();
+    if(this.subPacienteSave){
+      this.subPacienteSave.unsubscribe();
+    }
   }
 }

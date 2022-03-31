@@ -70,7 +70,7 @@ export class DoctorAddComponent implements OnInit, OnDestroy {
     );
   }
 
-  public saveDoctor(): void { 
+  public saveDoctor(form: any): void { 
     let especialidadesArray = this.especialidadSelectList.map((str, index) => ({ id: str }));   
     const data = {
       nombre: this.doctor.nombre,
@@ -94,8 +94,6 @@ export class DoctorAddComponent implements OnInit, OnDestroy {
         error => {
           Swal.fire('Error!', error, 'error');
         });
-    this.doctor = new Doctor(0, '', '', new Date(), '', 0);
-    this.especialidadSelectList = [];
   }
 
   ngOnDestroy() {

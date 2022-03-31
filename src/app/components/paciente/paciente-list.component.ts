@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import Swal from 'sweetalert2';
 
 import { PacienteService } from 'src/app/services/paciente.service';
@@ -10,10 +10,12 @@ import { Paciente } from 'src/app/models/paciente';
   styleUrls: ['./paciente-list.component.css'],
   providers: [PacienteService]
 })
-export class PacienteListComponent implements OnInit {
+export class PacienteListComponent implements OnInit, OnDestroy {
 
   public title:string;
   public pacienteList: Paciente[];
+
+  public subPacienteAll: any;
 
   constructor(
     private pacienteService: PacienteService
@@ -27,7 +29,7 @@ export class PacienteListComponent implements OnInit {
   }
 
   public getAllPacientes(): void{
-    this.pacienteService.getAll().subscribe(
+    this.subPacienteAll = this.pacienteService.getAll().subscribe(
       (data: any) => {      
         this.pacienteList = data.content;
       },
@@ -35,5 +37,9 @@ export class PacienteListComponent implements OnInit {
         Swal.fire('Error!', error, 'error');        
       }
     );
+  }
+
+  ngOnDestroy() {
+    this.subPacienteAll.unsubscribe();
   }
 }

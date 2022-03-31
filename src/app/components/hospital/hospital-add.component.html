@@ -1,12 +1,18 @@
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
     <h2>{{ title }}</h2>
 </div>
-<form (ngSubmit)="saveHospital()">
+<form #hospitalForm="ngForm" (ngSubmit)="saveHospital(hospitalForm.value)">
     <div class="mb-3">
-        <label for="nombre" class="form-label">Nombre hospital:</label>
-        <input id="nombre" name="nombre" type="text" class="form-control" 
+        <label for="nombre" class="form-label">Nombre hospital <span style="color: red;">*</span></label>
+        <input id="nombre" name="nombre" type="text" class="form-control"
+                required #nombre="ngModel"
                 [(ngModel)]="hospital.nombre">
+        <div class="alert alert-danger" *ngIf="nombre.touched && !nombre.valid">
+            <div *ngIf="nombre.errors && nombre.errors['required']">Nombre es requerido.</div>
+        </div>
     </div>
-    <button type="submit" class="btn btn-primary" style="margin-right: 4px;">Guardar</button>
-    <button type="button" class="btn btn-secondary" [routerLink]="['/hospital/list']">Cancelar</button>
+    <button type="submit" class="btn btn-primary" style="margin-right: 4px;"
+            [disabled]="!hospitalForm.valid">Guardar</button>
+    <button type="button" class="btn btn-secondary" 
+            [routerLink]="['/hospital/list']">Cancelar</button>
 </form>
