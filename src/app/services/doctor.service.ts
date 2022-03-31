@@ -31,7 +31,7 @@ export class DoctorService {
   }
 
   public filterById(id: number): Observable<any> {
-    return this.http.get(`${this.ENDPOINT}${this.URI_ROOT}/${id}`).pipe(
+    return this.http.get(`${this.ENDPOINT}${this.URI_ROOT}/especialidades/${id}`).pipe(
       catchError(this.handleError)
     );
   }
