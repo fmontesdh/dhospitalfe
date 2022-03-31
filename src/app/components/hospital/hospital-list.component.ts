@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 
 import { HospitalService } from 'src/app/services/hospital.service';
@@ -16,9 +17,11 @@ export class HospitalListComponent implements OnInit, OnDestroy {
   public hospitalList: Hospital[];
 
   public subHospitalAll: any;
+  public subHospitalDelete: any;
 
   constructor(
-    private hospitalService: HospitalService
+    private hospitalService: HospitalService,
+    private router: Router
   ) { 
     this.title = 'Hospitales';
     this.hospitalList = [];
@@ -39,7 +42,25 @@ export class HospitalListComponent implements OnInit, OnDestroy {
     );
   }
 
+  public deleteHospitalAction(id: number): void {
+    if(confirm('¿Esta seguro de eliminar el registro?')){
+      this.subHospitalDelete = this.hospitalService.delete(id)
+      .subscribe(
+        response => {
+          Swal.fire('Correcto!',  "Registro fue eliminado correctamente.", 'success');
+          this.getAllHospitales();
+        },
+        error => {
+          Swal.fire('Error!', error, 'error');
+        });
+      
+    }
+  }
+
   ngOnDestroy() {
     this.subHospitalAll.unsubscribe();
+    if(this.subHospitalDelete){
+      this.subHospitalDelete.unsubscribe();
+    }
   }
 }
