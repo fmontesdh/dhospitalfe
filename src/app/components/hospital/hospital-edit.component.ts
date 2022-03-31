@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import Swal from 'sweetalert2';
 
@@ -11,12 +11,14 @@ import { Hospital } from 'src/app/models/hospital'
   styleUrls: ['./hospital-edit.component.css'],
   providers: [HospitalService]
 })
-export class HospitalEditComponent implements OnInit {
+export class HospitalEditComponent implements OnInit, OnDestroy {
 
   public title: string;
   public hospital: Hospital;
   public idHospital: number;
 
+  public subHospitalUpdate: any;
+  public subHospitalFind: any;
 
   constructor(
     private hospitalService: HospitalService,
@@ -33,7 +35,7 @@ export class HospitalEditComponent implements OnInit {
   }
 
   private findHospital() {
-    this.route.paramMap.subscribe(params => {
+    this.subHospitalFind = this.route.paramMap.subscribe(params => {
       this.idHospital = Number(params.get('id'));
       this.hospitalService.filterById(this.idHospital)
         .subscribe(
@@ -50,7 +52,7 @@ export class HospitalEditComponent implements OnInit {
     let data = {
       nombre: this.hospital.nombre,
     };
-    this.hospitalService.update(this.idHospital, data)
+    this.subHospitalUpdate = this.hospitalService.update(this.idHospital, data)
       .subscribe(
         response => {
           Swal.fire('Correcto!',  "Registro editado correctamente.", 'success').then(
@@ -60,5 +62,12 @@ export class HospitalEditComponent implements OnInit {
         error => {
           Swal.fire('Error!', error, 'error');
         });
-  }  
+  }
+
+  ngOnDestroy() {
+    this.subHospitalFind.unsubscribe();
+    if(this.subHospitalUpdate){
+      this.subHospitalUpdate.unsubscribe();
+    }
+  }
 }

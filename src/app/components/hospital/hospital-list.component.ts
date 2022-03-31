@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import Swal from 'sweetalert2';
 
 import { HospitalService } from 'src/app/services/hospital.service';
@@ -10,10 +10,12 @@ import { Hospital } from 'src/app/models/hospital';
   styleUrls: ['./hospital-list.component.css'],
   providers: [HospitalService]
 })
-export class HospitalListComponent implements OnInit {
+export class HospitalListComponent implements OnInit, OnDestroy {
 
   public title:string;
   public hospitalList: Hospital[];
+
+  public subHospitalAll: any;
 
   constructor(
     private hospitalService: HospitalService
@@ -27,7 +29,7 @@ export class HospitalListComponent implements OnInit {
   }
 
   public getAllHospitales(): void{
-    this.hospitalService.getAll().subscribe(
+    this.subHospitalAll = this.hospitalService.getAll().subscribe(
       (data: any) => {      
         this.hospitalList = data.content;
       },
@@ -35,5 +37,9 @@ export class HospitalListComponent implements OnInit {
         Swal.fire('Error!', error, 'error');        
       }
     );
+  }
+
+  ngOnDestroy() {
+    this.subHospitalAll.unsubscribe();
   }
 }

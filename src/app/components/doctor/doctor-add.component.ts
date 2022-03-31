@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 
 import { DoctorService } from 'src/app/services/doctor.service';
@@ -14,7 +15,7 @@ import { Especialidad } from 'src/app/models/especialidad';
   styleUrls: ['./doctor-add.component.css'],
   providers: [DoctorService, HospitalService, EspecialidadService]
 })
-export class DoctorAddComponent implements OnInit {
+export class DoctorAddComponent implements OnInit, OnDestroy {
 
   public title: string;
   public doctor: Doctor;
@@ -30,7 +31,8 @@ export class DoctorAddComponent implements OnInit {
   constructor(
     private doctorService: DoctorService,
     private hospitalService: HospitalService,
-    private especialidadService: EspecialidadService
+    private especialidadService: EspecialidadService,
+    private router: Router
   ) {
     this.title = 'Adicionar Doctor';
     this.doctor = new Doctor(0, '', '', new Date(), '', 1);
@@ -85,7 +87,9 @@ export class DoctorAddComponent implements OnInit {
       .subscribe(
         response => {
           this.isDoctorAdd = true;
-          Swal.fire('Correcto!', "Registro almacenado correctamente.", 'success');
+          Swal.fire('Correcto!', "Registro almacenado correctamente.", 'success').then(
+            () => this.router.navigate(['/doctor/list'])
+          );
         },
         error => {
           Swal.fire('Error!', error, 'error');
