@@ -49,7 +49,7 @@ export class PacienteAddComponent implements OnInit, OnDestroy {
     );
   }
 
-  public savePaciente(): void {
+  public savePaciente(form: any): void {
     const data = {
       nombre: this.paciente.nombre,
       apellido: this.paciente.apellido,
@@ -70,7 +70,6 @@ export class PacienteAddComponent implements OnInit, OnDestroy {
         error => {
           Swal.fire('Error!', error, 'error');
         });
-    this.paciente = new Paciente(0, '', '', new Date(), '', 0);
   }
 
   ngOnDestroy() {

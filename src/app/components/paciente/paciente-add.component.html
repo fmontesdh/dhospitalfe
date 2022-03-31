@@ -1,23 +1,42 @@
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
     <h2>{{ title }}</h2>
 </div>
-<form (ngSubmit)="savePaciente()">
+<form #pacienteForm="ngForm" (ngSubmit)="savePaciente(pacienteForm.value)">
     <div class="mb-3">
         <label for="nombre" class="form-label">Nombre:</label>
-        <input id="nombre" name="nombre" type="text" class="form-control" [(ngModel)]="paciente.nombre">
+        <input id="nombre" name="nombre" type="text" class="form-control" 
+                required #nombre="ngModel"
+                [(ngModel)]="paciente.nombre">
+        <div class="alert alert-danger" *ngIf="nombre.touched && !nombre.valid">
+            <div *ngIf="nombre.errors && nombre.errors['required']">Nombre es requerido.</div>
+        </div>
     </div>
     <div class="mb-3">
         <label for="apellido" class="form-label">Apellido:</label>
-        <input id="apellido" name="apellido" type="text" class="form-control" [(ngModel)]="paciente.apellido">
+        <input id="apellido" name="apellido" type="text" class="form-control" 
+                required #apellido="ngModel"
+                [(ngModel)]="paciente.apellido">
+        <div class="alert alert-danger" *ngIf="apellido.touched && !apellido.valid">
+            <div *ngIf="apellido.errors && apellido.errors['required']">Apellido es requerido.</div>
+        </div>
     </div>
     <div class="mb-3">
         <label for="fechaNacimiento" class="form-label">Fecha de nacimiento:</label>
         <input id="fechaNacimiento" name="fechaNac" type="date" class="form-control"
-            [(ngModel)]="paciente.fechaNacimiento">
+                required #fechaNacimiento="ngModel"
+                [(ngModel)]="paciente.fechaNacimiento">
+        <div class="alert alert-danger" *ngIf="fechaNacimiento.touched && !fechaNacimiento.valid">
+            <div *ngIf="fechaNacimiento.errors && fechaNacimiento.errors['required']">Fecha de nacimiento es requerido.</div>
+        </div>
     </div>
     <div class="mb-3">
         <label for="direccion" class="form-label">Direccion:</label>
-        <input id="direccion" name="direccion" type="text" class="form-control" [(ngModel)]="paciente.direccion">
+        <input id="direccion" name="direccion" type="text" class="form-control" 
+                required #direccion="ngModel"
+                [(ngModel)]="paciente.direccion">
+        <div class="alert alert-danger" *ngIf="direccion.touched && !direccion.valid">
+            <div *ngIf="direccion.errors && direccion.errors['required']">Dirección es requerido.</div>
+        </div>
     </div>
     <div class="mb-3">
         <label for="hospital_id" class="form-label">Hospital:</label>
@@ -28,6 +47,8 @@
             </option>
         </select>
     </div>
-    <button type="submit" class="btn btn-primary" style="margin-right: 4px;">Guardar</button>
-    <button type="button" class="btn btn-secondary" [routerLink]="['/paciente/list']">Cancelar</button>
+    <button type="submit" class="btn btn-primary" style="margin-right: 4px;"
+            [disabled]="!pacienteForm.valid">Guardar</button>
+    <button type="button" class="btn btn-secondary" 
+            [routerLink]="['/paciente/list']">Cancelar</button>
 </form>
