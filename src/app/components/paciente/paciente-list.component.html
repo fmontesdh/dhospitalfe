@@ -1,7 +1,7 @@
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
     <h2>{{ title }}</h2>
 </div>
-<button type="button" class="btn btn-primary" [routerLink]="['/paciente/new']">Adicionar Paciente</button>
+<button type="button" class="btn btn-primary" [routerLink]="['/paciente/new']"><span class="fa fa-plus"></span> Adicionar Paciente</button>
 <div *ngIf="!pacienteList"> Cargando listado... </div>
 <table *ngIf="pacienteList" class="table table-striped">
     <thead>
@@ -9,7 +9,7 @@
             <th>ID</th>
             <th>NOMBRE</th>
             <th>APELLIDO</th>
-            <th style="min-width: 80px;">Accion</th>
+            <th style="width: 170px;">Accion</th>
         </tr>
     </thead>
     <tbody>
@@ -18,7 +18,10 @@
             <td>{{ paciente.nombre }}</td>
             <td>{{ paciente.apellido }}</td>
             <td>
-                <button type="button" class="btn btn-success btn-sm" routerLink="/paciente/edit/{{paciente.id}}">Editar</button>
+                <button type="button" class="btn btn-success btn-sm" 
+                        routerLink="/paciente/edit/{{paciente.id}}">Editar</button>
+                <button type="button" class="btn btn-danger btn-sm"
+                        (click)="deletePacienteAction(paciente.id)">Eliminar</button>
             </td>
         </tr>
     </tbody>

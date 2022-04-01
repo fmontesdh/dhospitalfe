@@ -43,6 +43,11 @@ export class PacienteService {
       );
   }
 
+  public delete(id: number): Observable<any> {
+    return this.http.delete(`${this.ENDPOINT}${this.URI_ROOT}/${id}`).pipe(
+      catchError(this.handleError)
+    );
+  }
 
   public handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {

@@ -58,7 +58,7 @@ export class DoctorEditComponent implements OnInit, OnDestroy {
         .subscribe(
           response => {
             this.doctor = response;
-            this.doctor.hospital_id = response.hospitalId;
+            this.doctor.hospital_id = response.hospital.id;
             this.especialidadSelectList = response.especialidades.map((esp: any) => esp.id);
           },
           error => {

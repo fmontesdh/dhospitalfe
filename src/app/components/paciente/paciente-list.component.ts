@@ -16,6 +16,7 @@ export class PacienteListComponent implements OnInit, OnDestroy {
   public pacienteList: Paciente[];
 
   public subPacienteAll: any;
+  public subPacienteDelete: any;
 
   constructor(
     private pacienteService: PacienteService
@@ -39,7 +40,24 @@ export class PacienteListComponent implements OnInit, OnDestroy {
     );
   }
 
+  public deletePacienteAction(id: number): void {
+    if(confirm('¿Esta seguro de eliminar el registro?')){
+      this.subPacienteDelete = this.pacienteService.delete(id)
+      .subscribe(
+        response => {
+          Swal.fire('Correcto!',  "Registro fue eliminado correctamente.", 'success');
+          this.getAllPacientes();
+        },
+        error => {
+          Swal.fire('Error!', error, 'error');
+        });      
+    }
+  }
+
   ngOnDestroy() {
     this.subPacienteAll.unsubscribe();
+    if(this.subPacienteDelete){
+      this.subPacienteDelete.unsubscribe();
+    }
   }
 }
