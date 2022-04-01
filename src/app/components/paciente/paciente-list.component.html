@@ -9,7 +9,7 @@
             <th>ID</th>
             <th>NOMBRE</th>
             <th>APELLIDO</th>
-            <th style="width: 170px;">Accion</th>
+            <th style="width: 250px;">Accion</th>
         </tr>
     </thead>
     <tbody>
@@ -22,6 +22,8 @@
                         routerLink="/paciente/edit/{{paciente.id}}">Editar</button>
                 <button type="button" class="btn btn-danger btn-sm"
                         (click)="deletePacienteAction(paciente.id)">Eliminar</button>
+                <button type="button" class="btn btn-info btn-sm"
+                        routerLink="/paciente/notas/{{paciente.id}}">Ver Nota</button>
             </td>
         </tr>
     </tbody>

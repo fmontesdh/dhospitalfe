@@ -17,6 +17,7 @@ import { EspecialidadListComponent } from './components/especialidad/especialida
 import { NotaAddComponent } from './components/nota/nota-add.component';
 import { NotaEditComponent } from './components/nota/nota-edit.component';
 import { NotaListComponent } from './components/nota/nota-list.component';
+import { NotaViewComponent } from './components/paciente/nota-view.component';
 
 const routes: Routes = [
     { path: '', component: HomeComponent },
@@ -26,7 +27,8 @@ const routes: Routes = [
     { path: 'hospital/edit/:id', component: HospitalEditComponent },
     { path: 'paciente/list', component: PacienteListComponent },
     { path: 'paciente/new', component: PacienteAddComponent },
-    { path: 'paciente/edit/:id', component: PacienteEditComponent }, 
+    { path: 'paciente/edit/:id', component: PacienteEditComponent },
+    { path: 'paciente/notas/:id', component: NotaViewComponent }, 
     { path: 'doctor/list', component: DoctorListComponent },
     { path: 'doctor/new', component: DoctorAddComponent },
     { path: 'doctor/edit/:id', component: DoctorEditComponent },

@@ -21,6 +21,7 @@ import { EspecialidadAddComponent } from './components/especialidad/especialidad
 import { EspecialidadListComponent } from './components/especialidad/especialidad-list.component';
 import { EspecialidadEditComponent } from './components/especialidad/especialidad-edit.component';
 import { DoctorEditComponent } from './components/doctor/doctor-edit.component';
+import { NotaViewComponent } from './components/paciente/nota-view.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { DoctorEditComponent } from './components/doctor/doctor-edit.component';
     EspecialidadAddComponent,
     EspecialidadListComponent,
     EspecialidadEditComponent,
-    DoctorEditComponent
+    DoctorEditComponent,
+    NotaViewComponent
   ],
   imports: [
     BrowserModule,

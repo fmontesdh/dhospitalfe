@@ -1,0 +1,53 @@
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h2>{{ title }}</h2>
+</div>
+<div class="card">
+    <div class="card-body">
+      <h5 class="card-title">Datos Personales</h5>
+      <p class="card-text">Datos personales del paciente</p>
+    </div>
+    <div *ngIf="!paciente"> Cargando listado... </div>
+    <table *ngIf="paciente" class="table table-striped">
+        <tr>
+            <th>ID</th>
+            <td>{{ paciente.id }}</td>
+        </tr>
+        <tr>
+            <th>NOMBRE</th>
+            <td>{{ paciente.nombre }}</td>
+        </tr>
+        <tr>
+            <th>APELLIDO</th>
+            <td>{{ paciente.apellido }}</td>
+        </tr>
+        <tr>
+            <th>DIRECCION</th>
+            <td>{{ paciente.direccion }}</td>
+        </tr>
+    </table>
+  </div>
+  <br>
+  <div class="card">
+    <div class="card-body">
+      <h5 class="card-title">Visitas</h5>
+      <p class="card-text">Datos personales del paciente</p>
+    </div>
+    <div *ngIf="!paciente"> Cargando listado... </div>
+    <table *ngIf="paciente" class="table table-striped">
+        <tr>
+            <th>Fecha de Visita</th>
+            <th>Doctor</th>
+            <th>Descripcion</th>
+        </tr>
+        <tr *ngFor="let nota of paciente.notasVisita">
+            <td>{{ nota.fechaNota }}</td>
+            <td>{{ nota.doctor.nombre }}</td>
+            <td>{{ nota.descripcion }}</td>            
+        </tr>
+    </table>
+  </div>
+
+  <br>
+  <button type="button" class="btn btn-primary" style="width: 150px;" [routerLink]="['/paciente/list']">Volver</button>
+
+

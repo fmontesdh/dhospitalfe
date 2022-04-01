@@ -49,6 +49,12 @@ export class PacienteService {
     );
   }
 
+  public filterPacienteNotasById(id: number): Observable<any> {
+    return this.http.get(`${this.ENDPOINT}${this.URI_ROOT}/doctores/notas/${id}`).pipe(
+      catchError(this.handleError)
+    );
+  }
+
   public handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
       console.error('Error:', error.error.message);
