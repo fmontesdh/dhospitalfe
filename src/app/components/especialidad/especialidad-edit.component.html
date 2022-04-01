@@ -1,1 +1,27 @@
-<p>especialidad-edit works!</p>
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h2>{{ title }}</h2>
+</div>
+<form #especialidadForm="ngForm" (ngSubmit)="updateEspecialidad(especialidadForm.value)">
+    <div class="mb-3">
+        <label for="nombre" class="form-label">Nombre:</label>
+        <input id="nombre" name="nombre" type="text" class="form-control" 
+                required #nombre="ngModel"
+                [(ngModel)]="especialidad.nombre">
+        <div class="alert alert-danger" *ngIf="nombre.touched && !nombre.valid">
+            <div *ngIf="nombre.errors && nombre.errors['required']">Nombre es requerido.</div>
+        </div>
+    </div>
+    <div class="mb-3">
+        <label for="descripcion" class="form-label">Descripcion:</label>
+        <input id="descripcion" name="descripcion" type="text" class="form-control" 
+                required #descripcion="ngModel"
+                [(ngModel)]="especialidad.descripcion">
+        <div class="alert alert-danger" *ngIf="descripcion.touched && !descripcion.valid">
+            <div *ngIf="descripcion.errors && descripcion.errors['required']">Descripcion es requerido.</div>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary" style="margin-right: 4px;"
+            [disabled]="!especialidadForm.valid">Guardar</button>
+    <button type="button" class="btn btn-secondary" 
+            [routerLink]="['/especialidad/list']">Cancelar</button>
+</form>
